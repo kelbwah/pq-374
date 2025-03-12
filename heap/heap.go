@@ -9,6 +9,7 @@ type MaxHeap struct {
     List []int
 }
 
+// O(logn)
 func (h *MaxHeap) Shiftup(idx int) {
     parent := (idx - 1) / 2
     for idx != 0 && h.List[idx] > h.List[parent] {
@@ -18,6 +19,7 @@ func (h *MaxHeap) Shiftup(idx int) {
     }
 }
 
+// O(logn)
 func (h *MaxHeap) Shiftdown(idx int) {
     left := (2 * idx) + 1
     right := (2 * idx) + 2
@@ -35,11 +37,13 @@ func (h *MaxHeap) Shiftdown(idx int) {
     }
 }
 
+// O(logn)
 func (h *MaxHeap) Insert(val int) {
     h.List = append(h.List, val)
     h.Shiftup(len(h.List) - 1)
 }
 
+// O(1)
 func (h *MaxHeap) GetMax() (int, error) {
     if len(h.List) > 0 {
         return h.List[0], nil
@@ -48,6 +52,7 @@ func (h *MaxHeap) GetMax() (int, error) {
     }
 }
 
+// O(logn)
 func (h *MaxHeap) ExtractMax() (int, error) {
     if len(h.List) == 0 {
         return 0, errors.New("Heap is empty!")
@@ -60,6 +65,7 @@ func (h *MaxHeap) ExtractMax() (int, error) {
     return maxVal, nil
 }
 
+// O(logn)
 func (h *MaxHeap) UpdateByIndex(idx, newVal int) {
     oldVal := h.List[idx]
     h.List[idx] = newVal
@@ -70,12 +76,14 @@ func (h *MaxHeap) UpdateByIndex(idx, newVal int) {
     }
 }
 
+// O(n)
 func (h *MaxHeap) Update(oldVal, newVal int) {
     if slices.Contains(h.List, oldVal) {
         h.UpdateByIndex(slices.Index(h.List, oldVal), newVal)
     }
 }
 
+// O(n)
 func CreateMaxHeap(arr []int) *MaxHeap {
     heapedArr := make([]int, len(arr))
     copy(heapedArr, arr)
